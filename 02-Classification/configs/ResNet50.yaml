@@ -1,0 +1,77 @@
+# General configurations
+seed: 0
+
+# Path configurations
+save_path: 'output'
+config_file: ''
+model_file: ''
+
+# dataset
+data_root: &data_root 'data/peach-dataset'
+train_anno_file: &train_anno_file 'data/peach-dataset/train_list.txt'
+val_anno_file: &val_anno_file 'data/peach-dataset/validate_list.txt'
+test_anno_file: &test_anno_file 'data/peach-dataset/test_list.txt'
+image_size: &image_size [224, 224]
+colorjitter: &colorjitter [0.4, 0.4, 0.4, 0.4]
+mean: &mean [127.5, 127.5, 127.5]
+std: &std [127.5, 127.5, 127.5]
+
+train_dataset:
+    type: 'PeachDataset'
+    data_root: *data_root
+    anno_file: *train_anno_file
+    mode: 'train'
+    transform: {
+        image_size: *image_size,
+        colorjitter: *colorjitter,
+        mean: *mean,
+        std: *std,
+        horizontal_flip_prob: 0.5,
+        vertical_flip_prob: 0.5,
+    }
+
+val_dataset:
+    type: 'PeachDataset'
+    data_root: *data_root
+    anno_file: *val_anno_file
+    mode: 'val'
+    transform: {
+        image_size: *image_size,
+        mean: *mean,
+        std: *std,
+    }
+ 
+test_dataset:
+    type: 'PeachDataset'
+    data_root: *data_root
+    anno_file: *test_anno_file
+    mode: 'test'
+    transform: {
+        image_size: *image_size,
+        mean: *mean,
+        std: *std,
+    }
+
+# Train configurations
+num_epochs: &num_epochs 10
+train_batch_size: 64
+test_batch_size: 64
+num_workers: 4
+print_freq: 10
+save_freq: 1
+evaluate: True
+
+scheduler:
+  type: 'StepDecay'
+  learning_rate: 0.0001
+  step_size: 8
+  gamma: 0.1
+  num_epochs: *num_epochs
+
+optimizer:
+  type: 'Adam'
+  weight_decay: 0.0001
+
+model:
+  type: 'ResNet50'
+  num_classes: 4
