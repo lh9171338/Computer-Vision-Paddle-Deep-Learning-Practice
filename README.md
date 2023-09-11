@@ -4,7 +4,7 @@
 《计算机视觉——飞桨深度学习实战》书籍代码集合
 
 # Code
-- [x] Paddle实现网络搭建案例-LeNet
+- [x] [Paddle实现网络搭建案例-LeNet](https://github.com/lh9171338/Computer-Vision-Paddle-Deep-Learning-Practice/tree/main/01-LeNet)
 - [ ] Paddle实现图像分类案例-桃子分拣
 
 # Run
